@@ -1,0 +1,214 @@
+name: Create GATE 2027 Repository Structure
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create-repository:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate folders and files
+        run: |
+          mkdir -p \
+            01_Official_Information/official_syllabus \
+            02_Syllabus/general_aptitude \
+            02_Syllabus/engineering_mathematics \
+            02_Syllabus/core_subjects \
+            03_Study_Material/handwritten_notes \
+            03_Study_Material/lecture_notes \
+            03_Study_Material/reference_books \
+            04_Previous_Year_Questions/2026 \
+            04_Previous_Year_Questions/2025 \
+            04_Previous_Year_Questions/2024 \
+            04_Previous_Year_Questions/solutions \
+            05_Practice_Questions/topic_wise \
+            05_Practice_Questions/subject_wise \
+            05_Practice_Questions/mock_tests \
+            06_Formula_Book \
+            07_Revision/short_notes \
+            08_Preparation_Plan \
+            09_Progress_Tracking
+
+          # Create placeholder files for Git tracking
+          find . -type d -empty -exec sh -c \
+            'touch "$1/.gitkeep"' _ {} \;
+
+          # Create documentation files
+          cat > README.md <<'EOF'
+          # GATE 2027 - Computer Science (CS)
+
+          Welcome to the GATE 2027 CS Preparation Repository!
+
+          ## Contents
+
+          - Official Information
+          - Complete CS Syllabus
+          - Study Materials
+          - Previous Year Questions
+          - Practice Questions
+          - Formula Book
+          - Revision Materials
+          - Preparation Plans
+          - Progress Tracking
+
+          ## Official Resources
+
+          - [GATE 2027 Official Website](https://gate2027.iitm.ac.in/)
+          - [Official Syllabus](https://gate2027.iitm.ac.in/exam_papers_and_syllabus)
+          - [Official Question Papers](https://gate2027.iitm.ac.in/download)
+
+          ## Preparation Goal
+
+          Build a structured and community-driven resource
+          for GATE 2027 Computer Science aspirants.
+
+          Contributions are welcome!
+          EOF
+
+          cat > LICENSE <<'EOF'
+          MIT License
+
+          Copyright (c) 2026 GATE 2027 CS contributors
+
+          Permission is hereby granted, free of charge, to any
+          person obtaining a copy of this software and associated
+          documentation files to deal in the Software without
+          restriction, subject to the MIT License terms.
+          EOF
+
+          cat > CONTRIBUTING.md <<'EOF'
+          # Contributing Guidelines
+
+          1. Follow the official GATE 2027 syllabus.
+          2. Submit original notes and explanations.
+          3. Cite external references.
+          4. Do not upload copyrighted or pirated material.
+          5. Keep subject folders organised.
+          6. Use pull requests for contributions.
+          EOF
+
+          cat > 01_Official_Information/eligibility.md <<'EOF'
+          # GATE 2027 Eligibility
+
+          Refer to the official eligibility criteria:
+          https://gate2027.iitm.ac.in/eligibility_criteria
+
+          Check the official brochure for your specific degree.
+          EOF
+
+          cat > 01_Official_Information/exam_pattern.md <<'EOF'
+          # GATE 2027 CS Exam Pattern
+
+          - Duration: 3 hours
+          - Total questions: 65
+          - Maximum marks: 100
+          - General Aptitude: 15 marks
+          - Engineering Mathematics: 13 marks
+          - Remaining CS subjects: 72 marks
+          - Question types: MCQ, MSQ and NAT
+
+          Verify the official examination pattern before the exam.
+          EOF
+
+          cat > 01_Official_Information/important_dates.md <<'EOF'
+          # GATE 2027 Important Dates
+
+          Official dates and updates:
+          https://gate2027.iitm.ac.in/important_dates
+          EOF
+
+          cat > 03_Study_Material/online_resources.md <<'EOF'
+          # Online Study Resources
+
+          - NPTEL: https://nptel.ac.in/
+          - MIT OpenCourseWare: https://ocw.mit.edu/
+          - Open Source Textbook: https://pages.cs.wisc.edu/~remzi/OSTEP/
+          - Official GATE website: https://gate2027.iitm.ac.in/
+          EOF
+
+          cat > 07_Revision/important_topics.md <<'EOF'
+          # Important Topics
+
+          Add high-priority topics, frequently tested concepts
+          and topics requiring additional revision.
+          EOF
+
+          cat > 07_Revision/revision_checklist.md <<'EOF'
+          # Revision Checklist
+
+          - [ ] Engineering Mathematics
+          - [ ] Digital Logic
+          - [ ] COA
+          - [ ] Programming and Data Structures
+          - [ ] Algorithms
+          - [ ] Theory of Computation
+          - [ ] Compiler Design
+          - [ ] Operating Systems
+          - [ ] Databases
+          - [ ] Computer Networks
+          - [ ] General Aptitude
+          EOF
+
+          cat > 08_Preparation_Plan/monthly_plan.md <<'EOF'
+          # Monthly Preparation Plan
+
+          Add monthly goals, subject targets and revision milestones.
+          EOF
+
+          cat > 08_Preparation_Plan/weekly_plan.md <<'EOF'
+          # Weekly Preparation Plan
+
+          Add weekly topics, PYQs, practice and revision targets.
+          EOF
+
+          cat > 08_Preparation_Plan/daily_tracker.md <<'EOF'
+          # Daily Study Tracker
+
+          | Date | Subject | Topics | Hours | Status |
+          |---|---|---|---|---|
+          EOF
+
+          cat > 09_Progress_Tracking/syllabus_completion.md <<'EOF'
+          # Syllabus Completion
+
+          | Subject | Completion | Status |
+          |---|---:|---|
+          | Engineering Mathematics | 0% | Pending |
+          | Digital Logic | 0% | Pending |
+          | COA | 0% | Pending |
+          | Programming and Data Structures | 0% | Pending |
+          | Algorithms | 0% | Pending |
+          | Theory of Computation | 0% | Pending |
+          | Compiler Design | 0% | Pending |
+          | Operating Systems | 0% | Pending |
+          | Databases | 0% | Pending |
+          | Computer Networks | 0% | Pending |
+          | General Aptitude | 0% | Pending |
+          EOF
+
+          cat > 09_Progress_Tracking/mock_test_scores.md <<'EOF'
+          # Mock Test Scores
+
+          | Date | Test | Score | Accuracy | Weak Areas |
+          |---|---|---:|---:|---|
+          EOF
+
+      - name: Commit and push generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m "Create GATE 2027 CS repository structure"
+            git push
+          else
+            echo "No changes to commit."
+          fi
